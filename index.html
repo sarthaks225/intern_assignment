@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cryptocurrency Data</title>
+  
+  <style>
+    :root {
+      --bg-color-light: #f2f2f2;
+      --text-color-light: #333;
+      --bg-color-dark: #121212;
+      --text-color-dark: #fff;
+      --primary-color: #007bff;
+      --secondary-color: #6c757d;
+      --highlight-color: #32CD32;
+      --danger-color: #FF4500;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color-light);
+      color: var(--text-color-light);
+      margin: 0;
+      padding: 20px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .header h2 {
+      font-size: 20px;
+      color: #b6d9db;
+    }
+    .header h1 {
+      font-size: 36px;
+      color: #00ADB5;
+    }
+
+    .theme-toggle {
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background-color: #0056b3;
+    }
+
+    .crypto-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      color: var(--text-color-light);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .crypto-table th, .crypto-table td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .crypto-table th {
+      background-color: #212529;
+      color: var(--text-color-dark);
+    }
+
+    .crypto-table tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .crypto-table tbody tr:hover {
+      background-color: #f0f0f0;
+    }
+
+    .dark-mode {
+      background-color: var(--bg-color-dark);
+      color: var(--text-color-dark);
+    }
+
+    .dark-mode .container {
+      background-color: #212529;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    .dark-mode .crypto-table {
+      color: var(--text-color-dark);
+    }
+
+    .dark-mode .crypto-table th {
+      background-color: #333;
+      color: var(--text-color-dark);
+    }
+
+    .dark-mode .crypto-table tbody tr:nth-child(even) {
+      background-color: #2a2a2a;
+    }
+
+    .dark-mode .crypto-table tbody tr:hover {
+      background-color: #3a3a3a;
+    }
+
+    .highlight {
+      color: var(--highlight-color);
+    }
+
+    .danger {
+      color: var(--danger-color);
+    }
+
+    .table-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .table-heading h2 {
+      margin: 0;
+      color: #00ADB5;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .stats div {
+      text-align: center;
+    }
+
+    .stats div p {
+      margin: 5px 0;
+    }
+
+    .stats .value {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .main-price  h2 {
+      font-size: 30px;
+      color: #435b5c;
+      text-align: center;
+    }
+
+    .main-price h1 {
+      font-size: 48px;
+      color: #034649;
+      text-align: center;
+    }
+
+    .main-price p {
+      text-align: center;
+      color: #435b5c;;
+    }
+
+    .platform-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .platform-logo img {
+      margin-right: 10px;
+      width: 20px;
+      height: 20px;
+    }
+
+    .stats-button {
+      background-color: #2a2a2a;
+      color: var(--text-color-dark);
+      border: 1px solid #444;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .stats-button:hover {
+      background-color: #3a3a3a;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>HODLINFO</h1>
+    <button class="theme-toggle" id="theme-toggle">Switch to Dark Mode</button>
+  </div>
+  
+  <div class="container">
+    <div class="table-heading">
+      <center></center>
+      
+    </div>
+
+    <div class="main-price">
+      <h2>Best Price to Trade</h2>
+      <h1>₹54,95,976</h1>
+      <p>Average BTC/INR net price including commission</p>
+    </div>
+
+    <table class="crypto-table" id="crypto-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Last Traded Price</th>
+          <th>Buy / Sell Price</th>
+          <th>volume</th>
+          <th>Base_unit</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <!-- Table body will be populated dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('/data')
+        .then(response => response.json())
+        .then(data => {
+          const tableBody = document.getElementById('table-body');
+          data.forEach((ticker, index) => {
+            const row = tableBody.insertRow();
+            
+            row.innerHTML = `
+              <td>${index + 1}</td>
+              <td>₹${ticker.name.toLocaleString()}</td>
+              <td>${ticker.last.toLocaleString()}</td>
+              <td>₹${ticker.buy.toLocaleString()} / ₹${ticker.sell.toLocaleString()}</td>
+              <td >${ticker.volume}/</td>
+              <td >₹${ticker.base_unit.toLocaleString()}</td>
+            `;
+          });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+
+      const themeToggle = document.getElementById('theme-toggle');
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        themeToggle.textContent = isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+      });
+    });
+  </script>
+</body>
+</html>
